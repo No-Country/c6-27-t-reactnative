@@ -1,0 +1,10 @@
+1- crear la carpeta CinemaBack
+2- dentro de la carpeta: npm init -y --> se crea el package.json
+3- crear un archivo app.js y en el package.json, el archivo que figura como "main" tiene que ser app.js
+instalar otros paquetes que vamos a usar:
+- npm i express
+- npm i dotenv
+crear archivo .env (variables de entorno)
+hacer git init
+crear el archivo .gitignore
+editarlo y agregar 2 lineas: node_modules y .env para que las ignore git
