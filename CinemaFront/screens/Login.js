@@ -10,13 +10,14 @@ export default function Login() {
         <Text style={styles.text}>Sig In to your account</Text>
         <TextInput style={styles.input} placeholder="Email" />
         <TextInput style={styles.input} placeholder="Password" />
-        <TouchableNativeFeedback  style={styles.btn_login}>
-        <Text style={styles.btn_login_text}>continue</Text>
+        <TouchableNativeFeedback style={styles.btn_login}>
+          <Text style={styles.btn_login_text}>continue</Text>
         </TouchableNativeFeedback>
-        <Text style={styles.text}>Don't have an account?
-        <Text style={styles.text_link}> Sign Up </Text>
+        <Text style={styles.text}>
+          Don't have an account?
+          <Text style={styles.text_link}> Sign Up </Text>
         </Text>
-       
+
         <Text style={styles.text_link}>Forgot your password?</Text>
       </View>
     </View>
@@ -27,13 +28,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#2c2c2c",
     alignItems: "center",
     justifyContent: "center",
-    height:'100vh',
-    width:"100%",
+    height: "100vh",
+    width: "100%",
   },
-  form:{
+  form: {
     backgroundColor: "rgba(255,255,255,.2)",
-    width:"90%",
-    padding:20
+    width: "90%",
+    padding: 20,
   },
   title: {
     fontSize: "1.5em",
@@ -66,13 +67,12 @@ const styles = StyleSheet.create({
     padding: "10px",
     marginTop: "20px",
     borderRadius: 30,
-    border:"none",
+    border: "none",
     alignItems: "center",
     justifyContent: "center",
-    
   },
   btn_login_text: {
     fontSize: "14px",
     color: "#FFF",
-  }
+  },
 });
