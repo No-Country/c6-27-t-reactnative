@@ -1,25 +1,35 @@
-const usersExample = {
-    "users": [
-        {
-            "id": 1,
-            "name": "John Doe",
-            "age": 30,
-            "email": "john@gmail.com"
-        },
-        {
-            "id": 2,
-            "name": "Jane Doe",
-            "age": 25,
-            "email": "jane@gmail.com"
-        },
-    ]
-}
+const { User, Role} = require('../database/models');
 
 const controller = {
-    list: (req, res) => 
+    list: async (req, res) => 
         {
-        res.send(JSON.stringify(usersExample));          
-        }
+            const users = await User.findAll({
+                include: [
+                    {
+                        model: Role,
+                        as: 'role'
+                    }
+                ]
+            });
+            res.json(users);
+        },
+
+    test: async (req, res) =>
+        {
+            let user = null;        
+            try {
+                user = await User.findOne(
+                    {    
+                        where: {userId: 1},                      
+                        attributes: ['userId', 'username', 'roleId', 'password','connect', 'role.name'],
+                        include: [{association: "role"}]
+                    })
+                return res.send(JSON.stringify(user));
+            }
+            catch(errores) { 
+                console.log("errores: "+ errores)
+                            }
+        },
     }
 
 module.exports = controller;
