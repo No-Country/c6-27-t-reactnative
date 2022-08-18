@@ -1,12 +1,28 @@
 const express = require('express')
 var bodyParser = require('body-parser')
 const app = express()
+const cors = require("cors")
 const path = require('path')
-const userRoutes = require('./routes/users')
-const filmRoutes = require('./routes/films')
+const usersRoutes = require('./routes/users')
+const filmsRoutes = require('./routes/films')
 
 // dotenv is a module that loads environment variables from a .env file into process.env
 require('dotenv').config({ path: '.env' })
+const domainsFromEnv = process.env.CORS_DOMAINS || ""
+const whitelist = domainsFromEnv.split(",").map(item => item.trim())
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true,
+}
+app.use(cors(corsOptions))
+
+// PORT
 const PORT = process.env.PORT || 3000
 
 // Middleware
@@ -23,8 +39,6 @@ app.listen(PORT, () => {
 })
 
 // Routes
-const usersRoutes = require('./routes/users.js')
-const filmsRoutes = require('./routes/films.js')
-app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/users', usersRoutes)
 app.use('/api/v1/films', filmsRoutes)
 
