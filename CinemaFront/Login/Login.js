@@ -9,11 +9,12 @@ import {
   StatusBar,
   TextInput,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Image, 
 } from 'react-native'
 
 // import AsyncStorage
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 // Formik
 import { Formik } from 'formik'
 // Yup
@@ -53,26 +54,28 @@ const App = () => {
           password: values.password
         }
       })
-      console.log(response);
+      console.log(response)
       if (response.status === 200) {
-        console.log(response);
+        console.log(response)
         if (response.data.status === 200) {
           AsyncStorage.setItem('token', response.data.token)
-          setLoginResponse(200)          
+          setLoginResponse(200)
           setTimeout(() => {
-            console.log("nuevo timeout")
-            setLoginResponse(0)} , 3000)
+            console.log('nuevo timeout')
+            setLoginResponse(0)
+          }, 3000)
         } else {
-          setLoginResponse(403)         
+          setLoginResponse(403)
           setTimeout(() => {
-            console.log("nuevo timeout")
-            setLoginResponse(0)} , 3000) 
+            console.log('nuevo timeout')
+            setLoginResponse(0)
+          }, 3000)
         }
       }
     } catch (error) {
       console.log(error)
     } finally {
-      setIsLoading(false)      
+      setIsLoading(false)
     }
   }
 
@@ -83,10 +86,14 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
         <View style={styles.loginContainer}>
+          <Image
+            style={styles.splashImage}
+            source={require('./splash.png')}
+          />
           <Text
             style={{
               fontSize: 24,
-              color: 'blue',
+              color: 'black',
               padding: 24,
               fontWeight: 'bold'
             }}
@@ -140,21 +147,24 @@ const App = () => {
                   </Text>
                 )}
                 {!isLoading && (
-                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                  <Text style={{fontSize: 24}}>Ingresar</Text>
-                </TouchableOpacity>                  
-                )}                
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={handleSubmit}
+                  >
+                    <Text style={{ fontSize: 24 }}>Ingresar</Text>
+                  </TouchableOpacity>
+                )}
 
                 {loginResponse === 200 && (
                   <Text style={{ fontSize: 16, color: 'green', padding: 5 }}>
                     Login Exitoso
                   </Text>
                 )}
-                { loginResponse === 403 && (
+                {loginResponse === 403 && (
                   <Text style={{ fontSize: 16, color: 'red', padding: 5 }}>
                     Usuario o contraseña incorrectas
                   </Text>
-                )} 
+                )}
               </>
             )}
           </Formik>
@@ -169,7 +179,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'yellow'
+  },
+  splashImage: {
+    width: 220, 
+    height: 220,
+    bottom: 20,
+    marginTop: 55,
   },
   loginContainer: {
     width: '95%',
@@ -189,10 +206,11 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    alignItems: 'center',
+    backgroundColor: 'lightblue',
     padding: 12,
-  },
+    borderRadius: 10,
+  }
 })
 
 export default App
