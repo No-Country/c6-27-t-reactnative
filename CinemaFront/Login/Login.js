@@ -10,7 +10,8 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  Image, 
+  Image,
+  KeyboardAvoidingView
 } from 'react-native'
 
 // import AsyncStorage
@@ -85,11 +86,16 @@ const App = () => {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
-        <View style={styles.loginContainer}>
-          <Image
-            style={styles.splashImage}
-            source={require('./splash.png')}
-          />
+        <KeyboardAvoidingView
+          behaviour={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.loginContainer}
+        >
+          <View>
+            <Image
+              style={styles.splashImage}
+              source={require('./splash.png')}
+            />
+          </View>
           <Text
             style={{
               fontSize: 24,
@@ -115,38 +121,42 @@ const App = () => {
               isValid
             }) => (
               <>
-                <TextInput
-                  name="username"
-                  placeholder="Nombre de Usuario"
-                  style={styles.textInput}
-                  onChangeText={handleChange('username')}
-                  onBlur={handleBlur('username')}
-                  value={values.username}
-                  keyboardType="default"
-                  autoCapitalize="none"
-                />
+                {!isLoading && loginResponse !== 200 && (
+                  <TextInput
+                    name="username"
+                    placeholder="Nombre de Usuario"
+                    style={styles.textInput}
+                    onChangeText={handleChange('username')}
+                    onBlur={handleBlur('username')}
+                    value={values.username}
+                    keyboardType="default"
+                    autoCapitalize="none"
+                  />
+                )}
 
                 {errors.username && touched.username && (
                   <Text style={{ fontSize: 16, color: 'red', padding: 5 }}>
                     {errors.username}
                   </Text>
                 )}
-                <TextInput
-                  name="password"
-                  placeholder="Password"
-                  style={styles.textInput}
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                  autoCapitalize="none"
-                  secureTextEntry
-                />
+                {!isLoading && loginResponse !== 200 && (
+                  <TextInput
+                    name="password"
+                    placeholder="Password"
+                    style={styles.textInput}
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    value={values.password}
+                    autoCapitalize="none"
+                    secureTextEntry
+                  />
+                )}
                 {errors.password && touched.password && (
                   <Text style={{ fontSize: 16, color: 'red', padding: 5 }}>
                     {errors.password}
                   </Text>
                 )}
-                {!isLoading && (
+                {!isLoading && loginResponse !== 200 && (
                   <TouchableOpacity
                     style={styles.button}
                     onPress={handleSubmit}
@@ -161,14 +171,22 @@ const App = () => {
                   </Text>
                 )}
                 {loginResponse === 403 && (
-                  <Text style={{ fontSize: 16, color: 'red', padding: 5 }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: 'red',
+                      padding: 5,
+                      position: 'absolute',
+                      bottom: -10
+                    }}
+                  >
                     Usuario o contraseña incorrectas
                   </Text>
                 )}
               </>
             )}
           </Formik>
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </>
   )
@@ -178,15 +196,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 20,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'yellow'
+    backgroundColor: 'white'
   },
   splashImage: {
-    width: 220, 
-    height: 220,
-    bottom: 20,
-    marginTop: 55,
+    display: 'flex',
+    aspectRatio: 1,
+    resizeMode: 'contain'
   },
   loginContainer: {
     width: '95%',
@@ -209,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'lightblue',
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 10
   }
 })
 
