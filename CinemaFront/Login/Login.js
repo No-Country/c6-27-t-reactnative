@@ -1,14 +1,13 @@
 // App.js
+import { Platform } from 'react-native';
 import { useState } from 'react'
 import {
   SafeAreaView,
-  StyleSheet,
-  ScrollView,
+  StyleSheet,  
   View,
   Text,
   StatusBar,
-  TextInput,
-  Button,
+  TextInput,  
   TouchableOpacity,
   Image,
   KeyboardAvoidingView
@@ -93,7 +92,7 @@ const App = () => {
           <View>
             <Image
               style={styles.splashImage}
-              source={require('./splash.png')}
+              source={require('./login.png')}
             />
           </View>
           <Text
@@ -201,6 +200,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   splashImage: {
+    width: 100,
+    height: 100,
     display: 'flex',
     aspectRatio: 1,
     resizeMode: 'contain'
