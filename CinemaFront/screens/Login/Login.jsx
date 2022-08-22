@@ -1,4 +1,5 @@
-// App.js
+// Login.jsx
+
 import { Platform } from 'react-native';
 import { useState } from 'react'
 import {
@@ -37,7 +38,7 @@ const loginValidationSchema = yup.object().shape({
     .required('El campo no debe estar vacio')
 })
 
-const App = () => {
+const Login = ({ navigation }) => {
   const baseUrl1 = 'https://gruporeactnative-server.herokuapp.com'
   const [isLoading, setIsLoading] = useState(false)
   const [loginResponse, setLoginResponse] = useState(0)
@@ -60,14 +61,13 @@ const App = () => {
         if (response.data.status === 200) {
           AsyncStorage.setItem('token', response.data.token)
           setLoginResponse(200)
-          setTimeout(() => {
-            console.log('nuevo timeout')
+          setTimeout(() => {            
             setLoginResponse(0)
+            navigation.navigate('Profile', { name: values.username.toLowerCase() })
           }, 3000)
         } else {
           setLoginResponse(403)
-          setTimeout(() => {
-            console.log('nuevo timeout')
+          setTimeout(() => {            
             setLoginResponse(0)
           }, 3000)
         }
@@ -231,4 +231,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default App
+export default Login
