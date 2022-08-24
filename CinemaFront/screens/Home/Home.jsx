@@ -79,7 +79,7 @@ const Home = ({ navigation }) => {
         keyExtractor={(item) => item.title}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{paddingTop: 60, paddingHorizontal: ESPACIO_LATERAL}}
+        contentContainerStyle={{paddingTop: height * 0.15, paddingHorizontal: ESPACIO_LATERAL}}
         decelerationRate={0}
         snapToInterval={ESPACIO_CONTENEDOR}
         scrollEventThrottle={16}
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   posterImage: {
       width: "100%",
-      height: ESPACIO_CONTENEDOR * 1.2,
+      height: height * 0.55,
       resizeMode: "cover",
       borderRadius: 24,
       margin: 0,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
       //height: 100,
       //backgroundColor: "rgba(0,0,0,0.6)",
       //borderRadius: 10,
-      top: -20,
+      top:  - (height * 0.075),
       marginBottom: 25,
       alignItems: 'center',
       justifyContent: 'space-between',
