@@ -1,6 +1,7 @@
 // Profile.jsx
 
 import {
+  Platform,
   SafeAreaView,
   StyleSheet,  
   Text,
@@ -13,7 +14,10 @@ import {
 const Profile = ({ navigation, route }) => {
 
 const handleSubmit = () => {
-    navigation.navigate('Home')
+  if (Platform.OS !== 'web') navigation.navigate('Home')
+  else {
+    navigation.navigate('HomeWeb')
+  }
 }
 
   return (

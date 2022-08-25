@@ -11,7 +11,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native'
 
 // import AsyncStorage
@@ -124,6 +125,7 @@ const Register2 = ({ navigation }) => {
           behaviour={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.loginContainer}
         >
+        <ScrollView style={styles.scrollView}>
           <Text
             style={{
               fontSize: 24,
@@ -288,6 +290,7 @@ const Register2 = ({ navigation }) => {
               </>
             )}
           </Formik>
+        </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </>
@@ -300,29 +303,25 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
-  },
-  splashImage: {
-    width: 100,
-    height: 100,
-    display: 'flex',
-    aspectRatio: 1,
-    resizeMode: 'contain'
+    backgroundColor: 'white',
+    padding: 0
+
   },
   loginContainer: {
-    width: '95%',
+    width: '100%',
     alignItems: 'center',
     backgroundColor: 'white',
-    padding: 20
+    padding: 5
   },
   textInput: {
     height: 60,
     width: '100%',
-    margin: 10,
+    marginTop: 10,
+    marginBotton: 10,
     backgroundColor: 'white',
     borderColor: 'gray',
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 10,
     fontSize: 24
   },
@@ -337,6 +336,9 @@ const styles = StyleSheet.create({
     color: 'black',
     padding: 16,
     fontWeight: 'bold'
+  },
+  scrollView: {
+   width: "90%"
   }
 })
 

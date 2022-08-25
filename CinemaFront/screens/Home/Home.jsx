@@ -140,7 +140,7 @@ const Home = ({ navigation }) => {
                                     <Text style={styles.text_button}>Ver horarios</Text>
                                 </TouchableOpacity>
                             </View>
-                        </Animated.View>
+                    </Animated.View>
                 </View>
             )
         }}
