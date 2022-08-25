@@ -81,6 +81,11 @@ const Login = ({ navigation }) => {
 
   console.log(loginResponse)
 
+  const handleNavigate = () =>
+  {
+    navigation.navigate('Register2');
+  }
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -103,7 +108,7 @@ const Login = ({ navigation }) => {
               fontWeight: 'bold'
             }}
           >
-            CINEMA APP
+            CINEMA APP - Log In
           </Text>
           <Formik
             validationSchema={loginValidationSchema}
@@ -155,7 +160,10 @@ const Login = ({ navigation }) => {
                     {errors.password}
                   </Text>
                 )}
-                {!isLoading && loginResponse !== 200 && (
+                 <TouchableOpacity onPress={handleNavigate}>                 
+                <Text style={styles.registrate}>¿No tienes una cuenta? Registrate </Text>
+                </TouchableOpacity>                 
+                {!isLoading && loginResponse !== 200 && (                  
                   <TouchableOpacity
                     style={styles.button}
                     onPress={handleSubmit}
@@ -228,6 +236,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     padding: 12,
     borderRadius: 10
+  },
+  registrate: {
+    alignItems: 'center',
+    color: 'black',
+    padding: 16,    
+    fontWeight: 'bold'
   }
 })
 
