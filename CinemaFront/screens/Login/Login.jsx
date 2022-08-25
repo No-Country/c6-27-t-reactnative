@@ -1,17 +1,18 @@
 // Login.jsx
 
-import { Platform } from 'react-native';
+import { Platform } from 'react-native'
 import { useState } from 'react'
 import {
   SafeAreaView,
-  StyleSheet,  
+  StyleSheet,
   View,
   Text,
   StatusBar,
-  TextInput,  
+  TextInput,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native'
 
 // import AsyncStorage
@@ -61,13 +62,15 @@ const Login = ({ navigation }) => {
         if (response.data.status === 200) {
           AsyncStorage.setItem('token', response.data.token)
           setLoginResponse(200)
-          setTimeout(() => {            
+          setTimeout(() => {
             setLoginResponse(0)
-            navigation.navigate('Profile', { name: values.username.toLowerCase() })
+            navigation.navigate('Profile', {
+              name: values.username.toLowerCase()
+            })
           }, 3000)
         } else {
           setLoginResponse(403)
-          setTimeout(() => {            
+          setTimeout(() => {
             setLoginResponse(0)
           }, 3000)
         }
@@ -81,9 +84,8 @@ const Login = ({ navigation }) => {
 
   console.log(loginResponse)
 
-  const handleNavigate = () =>
-  {
-    navigation.navigate('Register2');
+  const handleNavigate = () => {
+    navigation.navigate('Register2')
   }
 
   return (
@@ -94,11 +96,9 @@ const Login = ({ navigation }) => {
           behaviour={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.loginContainer}
         >
+          <ScrollView style={styles.scrollView}>
           <View>
-            <Image
-              style={styles.splashImage}
-              source={require('./login.png')}
-            />
+            <Image style={styles.splashImage} source={require('./login.png')} />
           </View>
           <Text
             style={{
@@ -160,10 +160,14 @@ const Login = ({ navigation }) => {
                     {errors.password}
                   </Text>
                 )}
-                 <TouchableOpacity onPress={handleNavigate}>                 
-                <Text style={styles.registrate}>¿No tienes una cuenta? Registrate </Text>
-                </TouchableOpacity>                 
-                {!isLoading && loginResponse !== 200 && (                  
+                {!isLoading && loginResponse !== 200 && (
+                  <TouchableOpacity onPress={handleNavigate}>
+                    <Text style={styles.registrate}>
+                      ¿No tienes una cuenta? Registrate{' '}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+                {!isLoading && loginResponse !== 200 && (
                   <TouchableOpacity
                     style={styles.button}
                     onPress={handleSubmit}
@@ -193,6 +197,7 @@ const Login = ({ navigation }) => {
               </>
             )}
           </Formik>
+        </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </>
@@ -210,12 +215,12 @@ const styles = StyleSheet.create({
   splashImage: {
     width: 100,
     height: 100,
-    display: 'flex',
+    alignSelf: "center",
     aspectRatio: 1,
     resizeMode: 'contain'
   },
   loginContainer: {
-    width: '95%',
+    width: '100%',
     alignItems: 'center',
     backgroundColor: 'white',
     padding: 20
@@ -223,11 +228,12 @@ const styles = StyleSheet.create({
   textInput: {
     height: 60,
     width: '100%',
-    margin: 10,
+    marginTop: 10,
+    marginBotton: 10,
     backgroundColor: 'white',
     borderColor: 'gray',
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 10,
     fontSize: 24
   },
@@ -240,8 +246,11 @@ const styles = StyleSheet.create({
   registrate: {
     alignItems: 'center',
     color: 'black',
-    padding: 16,    
+    padding: 16,
     fontWeight: 'bold'
+  },
+  scrollView: {
+   width: "90%"
   }
 })
 

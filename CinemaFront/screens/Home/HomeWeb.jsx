@@ -12,14 +12,25 @@ import {
   ScrollView
 } from 'react-native'
 
+import { API_HOST, API_KEY, LANG } from '../../utils/constants'
+import { getAllGenres } from '../../api/movie'
+
+const url = `${API_HOST}/movie/now_playing?api_key=${API_KEY}&language=${LANG}&page=1`
+
 // Axios
 import axios from 'axios'
-
-const { API_URL_2 } = process.env
 
 const Home = ({ navigation, route }) => {
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [genres, setGenres] = useState([])
+
+  //generos
+  useEffect(() => {
+    getAllGenres().then((response) => {
+      setGenres(response.genres)
+    })
+  }, [])
 
   useEffect(() => {
     if (isLoading === true) {
@@ -28,7 +39,7 @@ const Home = ({ navigation, route }) => {
         try {
           const response = await axios({
             method: 'get',
-            url: API_URL_2
+            url: url
           })
           setData(response.data)
           console.log(response.data)
@@ -47,14 +58,18 @@ const Home = ({ navigation, route }) => {
     setIsLoading(true)
   }
 
+  const detailMovie = (id, title) => {
+    navigation.navigate('DetailMovie', { id: id, title: title })
+  }
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.container}>        
+      <SafeAreaView style={styles.container}>
         {/* <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={{ fontSize: 24 }}> Reservar una Pelicula </Text>          
         </TouchableOpacity>   */}
-        <Text style={{padding: 20}}> Cinema App 2022</Text>
+        <Text style={{ padding: 20 }}> Cinema App 2022</Text>
         <ScrollView style={styles.scrollView}>
           {data.results &&
             data.results.map((item, index) => (
@@ -66,28 +81,39 @@ const Home = ({ navigation, route }) => {
                     uri: 'https://image.tmdb.org/t/p/w500/' + item.poster_path
                   }}
                 />
-                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.title_movie}>{item.title}</Text>
+                <Text style={styles.text_genre}>{    
+                        genres.map( (genre) => 
+                        {
+                          let included = item.genre_ids.includes(genre.id);
+                          return included && genre.name + " ";
+                        })
+                      }
+                </Text>
+                <View style={styles.button_container}>
+                  <TouchableOpacity
+                    style={styles.button2}
+                    onPress={() => detailMovie(item.id, item.title)}
+                  >
+                    <Text style={styles.text_button}>Ver horarios</Text>
+                  </TouchableOpacity>
+                </View>
                 <Text> </Text>
-                <Text style={{fontWeight: "bold"}}>Estreno:
-                <Text style={{fontWeight: 100}}> {item.release_date}</Text></Text>
-                <Text> </Text>
-                <Text style={{fontWeight: "bold"}}>Descripcion:</Text>
-                <Text>{item.overview}</Text>
               </View>
             ))}
         </ScrollView>
-        <Text style={{padding: 20}}> Cinema App 2022</Text>
+        <Text style={{ padding: 20 }}> Cinema App 2022</Text>
       </SafeAreaView>
     </>
   )
 }
 
 const styles = StyleSheet.create({
-  title: {    
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#000',
-    textAlign: 'center'    
+    textAlign: 'center'
   },
   tinyLogo: {
     width: 300,
@@ -102,10 +128,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
-  containerSplash: {    
+  containerSplash: {
     backgroundColor: '#F5FCFF',
     marginTop: 40,
-    marginHorizontal: 10,
+    marginHorizontal: 10
   },
   splashImage: {
     width: 100,
@@ -121,8 +147,30 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 10
   },
-  scrollView: {    
+  scrollView: {
     marginHorizontal: 20
+  },
+  title_movie: {
+    color: '#000',
+    fontSize: 25,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  button2: {
+    marginTop: 10,
+    backgroundColor: '#000',
+    borderRadius: 10,
+    paddingVertical: 10
+  },
+  text_button: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 16
+  },
+  text_genre: {
+    textAlign: 'center',
+    color: '#000',
+    fontSize: 16
   }
 })
 
