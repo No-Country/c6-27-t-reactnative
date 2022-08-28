@@ -69,11 +69,12 @@ const Home = ({ navigation, route }) => {
         {/* <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={{ fontSize: 24 }}> Reservar una Pelicula </Text>          
         </TouchableOpacity>   */}
-        <Text style={{ padding: 20 }}> Cinema App 2022</Text>
-        <ScrollView style={styles.scrollView}>
+        <Text style={{ fontSize: 24, padding: 20, alignSelf: "center" }}> SELECCIONA UNA PELICULA</Text>
+        <View style={{flexDirection: 'row'}}>
+        <ScrollView style={styles.scrollView} horizontal>
           {data.results &&
             data.results.map((item, index) => (
-              <View key={index}>
+              <View key={index} style={styles.item}>
                 <Text> </Text>
                 <Image
                   style={styles.tinyLogo}
@@ -102,7 +103,8 @@ const Home = ({ navigation, route }) => {
               </View>
             ))}
         </ScrollView>
-        <Text style={{ padding: 20 }}> Cinema App 2022</Text>
+        </View>
+        <Text style={{ padding: 20, alignSelf: "center" }}> Cinema App 2022</Text>
       </SafeAreaView>
     </>
   )
@@ -110,7 +112,7 @@ const Home = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
     textAlign: 'center'
@@ -121,12 +123,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 10
   },
-  container: {
-    flex: 1,
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white'
+  container: {        
+    justifyContent: 'center',    
+    backgroundColor: 'white',
+    height: "100%"
   },
   containerSplash: {
     backgroundColor: '#F5FCFF',
@@ -148,19 +148,27 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   scrollView: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
+    paddingHorizontal: 5,
+    borderWidth: 1,        
+  },
+  item: {
+    padding: 10
   },
   title_movie: {
     color: '#000',
-    fontSize: 25,
+    fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold'
   },
   button2: {
+    width: "50%",
     marginTop: 10,
     backgroundColor: '#000',
     borderRadius: 10,
-    paddingVertical: 10
+    paddingVertical: 10,
+    alignSelf:"center"
+
   },
   text_button: {
     textAlign: 'center',

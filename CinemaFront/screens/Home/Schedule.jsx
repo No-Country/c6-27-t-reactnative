@@ -1083,7 +1083,7 @@ const Schedule = ({ navigation, route }) => {
     const modalBuyTicket = () => {
         console.log("Compra exitosa");
         setModalVisible(false)
-    }
+    }    
 
   return (
     <View>
@@ -1092,8 +1092,8 @@ const Schedule = ({ navigation, route }) => {
             <View style={{ height: 50, marginTop: 20}}>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                    {dataSchedule.map(scheduleData => (
-                         <TouchableOpacity style={[styles.card, scheduleData.isSelected &&  styles.cardSelect]}  onPress={()=> selectSchedule( scheduleData )}>
+                    {dataSchedule.map( (scheduleData, index) => (
+                         <TouchableOpacity key={index} style={[styles.card, scheduleData.isSelected &&  styles.cardSelect]}  onPress={()=> selectSchedule( scheduleData )}>
                             <Text style={[styles.type, scheduleData.isSelected &&  styles.typeSelect,]}>{scheduleData.type}</Text>
                             <Text style={[styles.hour, scheduleData.isSelected &&  styles.hourSelect,]}>{scheduleData.hour}</Text>
                         </TouchableOpacity>
@@ -1111,8 +1111,8 @@ const Schedule = ({ navigation, route }) => {
                 { dataSeats.map((section) => (
                      <View style={styles.section} key={section.id}>
                         {
-                            section.seats.map((seat)=>(
-                                <TouchableOpacity disabled={seat.isOcuppied || seat.isHidden} style={[styles.seatUnique, seat.isHidden && styles.seatUniqueHidden, seat.isOcuppied && styles.seatUniqueOcuppied, seat.isSelect && styles.seatUniqueSelect]}
+                            section.seats.map((seat, index)=>(
+                                <TouchableOpacity key={index} disabled={seat.isOcuppied || seat.isHidden} style={[styles.seatUnique, seat.isHidden && styles.seatUniqueHidden, seat.isOcuppied && styles.seatUniqueOcuppied, seat.isSelect && styles.seatUniqueSelect]}
                                 onPress={()=> selectSeat( section, seat )}>
                                     
                                 </TouchableOpacity>
@@ -1165,9 +1165,9 @@ const Schedule = ({ navigation, route }) => {
                         <View style={[styles.modalData, {height: height * 0.5}]}>
                             <Text style={styles.modalTextMovie}>{newMovie.title}</Text>
                             <ScrollView style={{ height: 100}}>
-                            { seatsSelected.map(seat => (
+                            { seatsSelected.map( (seat, index) => (
                                 
-                                    <View style={styles.ticket}>
+                                    <View key={index} style={styles.ticket}>
                                         <View style={styles.ticketLeft}>
                                             <Image style={styles.ticketImg} source={require('./ticket.png')} />
                                         </View>
