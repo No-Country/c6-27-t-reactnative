@@ -105,7 +105,8 @@ const Login = ({ navigation }) => {
               fontSize: 24,
               color: 'black',
               padding: 24,
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              alignSelf: "center"
             }}
           >
             CINEMA APP - Log In
@@ -125,7 +126,7 @@ const Login = ({ navigation }) => {
               isValid
             }) => (
               <>
-                {!isLoading && loginResponse !== 200 && (
+                {!isLoading && loginResponse !== 200 && loginResponse !==403 && (
                   <TextInput
                     name="username"
                     placeholder="Nombre de Usuario"
@@ -143,7 +144,7 @@ const Login = ({ navigation }) => {
                     {errors.username}
                   </Text>
                 )}
-                {!isLoading && loginResponse !== 200 && (
+                {!isLoading && loginResponse !== 200 && loginResponse !==403 && (
                   <TextInput
                     name="password"
                     placeholder="Password"
@@ -160,14 +161,14 @@ const Login = ({ navigation }) => {
                     {errors.password}
                   </Text>
                 )}
-                {!isLoading && loginResponse !== 200 && (
+                {!isLoading && loginResponse !== 200 && loginResponse !==403 && (
                   <TouchableOpacity onPress={handleNavigate}>
                     <Text style={styles.registrate}>
                       ¿No tienes una cuenta? Registrate{' '}
                     </Text>
                   </TouchableOpacity>
                 )}
-                {!isLoading && loginResponse !== 200 && (
+                {!isLoading && loginResponse !== 200 && loginResponse !== 403 && (
                   <TouchableOpacity
                     style={styles.button}
                     onPress={handleSubmit}
@@ -177,7 +178,7 @@ const Login = ({ navigation }) => {
                 )}
 
                 {loginResponse === 200 && (
-                  <Text style={{ fontSize: 16, color: 'green', padding: 5 }}>
+                  <Text style={{ fontSize: 16, color: 'green', padding: 5, alignSelf: "center" }}>
                     Login Exitoso
                   </Text>
                 )}
@@ -186,9 +187,8 @@ const Login = ({ navigation }) => {
                     style={{
                       fontSize: 16,
                       color: 'red',
-                      padding: 5,
-                      position: 'absolute',
-                      bottom: -10
+                      padding: 5,                      
+                      alignSelf: "center"
                     }}
                   >
                     Usuario o contraseña incorrectas
