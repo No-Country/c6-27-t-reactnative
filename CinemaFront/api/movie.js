@@ -70,7 +70,7 @@ export function getGenreMoviesApi(idGenres){
 
 export function getMovieByIdApi(idMovie){
     const url = `${API_HOST}/movie/${idMovie}?api_key=${API_KEY}&language=${LANG}`;
-
+    console.log(url);
     return fetch(url)
     .then((response) => {
         return response.json()

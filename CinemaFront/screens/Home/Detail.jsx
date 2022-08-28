@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View,ScrollView, FlatList, Image, Dimensions, SafeAreaView, Animated, StatusBar, TouchableOpacity } from "react-native";
 import { getNewsMoviesApi, getAllGenres, getGenreMoviesApi, getMovieByIdApi } from '../../api/movie';
-import { BASE_PATH_IMG } from "../../utils/constants";
-
-import { LinearGradient} from "expo-linear-gradient"
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 
 const DetailMovie = ({ navigation, route }) => {
@@ -17,6 +16,10 @@ const DetailMovie = ({ navigation, route }) => {
         });
     }, [])
 
+  const detailMovie =(id, title) => {
+    navigation.navigate('Schedule', { id: id, title: title })
+  }
+
   return (
     <>
     <StatusBar barStyle="dark-content" />
@@ -28,24 +31,42 @@ const DetailMovie = ({ navigation, route }) => {
         {newMovie &&
           
             <View >
-              <Text> </Text>
-              <Image
-                style={styles.tinyLogo}
-                source={{
-                  uri: 'https://image.tmdb.org/t/p/w500/' + newMovie.poster_path
-                }}
-              />
-              <Text style={styles.title}>{newMovie.title}</Text>
-              <Text> </Text>
-              <Text style={{fontWeight: "bold"}}>Estreno:</Text>
-              <Text style={{fontWeight: "100"}}> {newMovie.release_date}</Text>
-              <Text> </Text>
-              <Text style={{fontWeight: "bold"}}>Descripcion:</Text>
-               <Text>{newMovie.overview}</Text>
+              <View style={styles.boxImage}>
+                <Image
+                  style={styles.tinyLogo}
+                  source={{
+                    uri: 'https://image.tmdb.org/t/p/w500' + newMovie.poster_path
+                  }}
+                />
+              </View>
+             
+              <View style={styles.containerData}>
+                <Text> </Text>
+                <Text style={styles.title}>{newMovie.title}</Text>
+                
+                {/*<Text style={{fontWeight: "bold"}}>Estreno:</Text>
+                <Text style={{fontWeight: "100"}}> {newMovie.release_date}</Text>*/}
+                <Text style={{fontWeight: "bold"}}>Descripcion:</Text>
+                <Text>{newMovie.overview}</Text>
+                <View style={styles.data}>
+                    <View style={styles.dataCart}>
+                      <Text style={{fontWeight: "bold"}}>Duración</Text>
+                      <Text>{newMovie.runtime} minutos</Text>
+                    </View>
+                    <View style={styles.dataCart}>
+                      <Text style={{fontWeight: "bold"}}>Tipo</Text>
+                      <Text>{newMovie.genres[0].name}</Text>
+                    </View>
+                </View>
+                  <View style={styles.button_container}>
+                      <TouchableOpacity style={styles.button} onPress={()=> detailMovie(newMovie.id, newMovie.title)}>
+                          <Text style={styles.text_button}>Comprar Ticket</Text>
+                      </TouchableOpacity>
+                  </View>
+                </View>
             </View>
         }
         </ScrollView>
-      <Text style={{padding: 20}}> Cinema App 2022</Text>
     </SafeAreaView>
   </>
   )
@@ -59,22 +80,34 @@ const styles = StyleSheet.create({
       textAlign: 'center'    
     },
     tinyLogo: {
-      width: 300,
-      height: 300,
-      alignSelf: 'center',
-      borderRadius: 10
+      width: '100%',
+      height: '100%',
+      resizeMode: "cover",
+      borderBottomLeftRadius: 50,
+      borderBottomRightRadius: 50,
+    },
+    boxImage: {
+      width: '100%',
+      height: height *0.42,
+      borderBottomLeftRadius: 50,
+      borderBottomRightRadius: 50,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
     },
     container: {
-      flex: 1,
-      marginTop: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'white'
+      backgroundColor: '#fff"'
     },
     containerSplash: {    
       backgroundColor: '#F5FCFF',
       marginTop: 40,
       marginHorizontal: 10,
+      height: height
     },
     splashImage: {
       width: 100,
@@ -90,9 +123,32 @@ const styles = StyleSheet.create({
       padding: 12,
       borderRadius: 10
     },
-    scrollView: {    
+    containerData: {    
       marginHorizontal: 20
-    }
+    },
+    data: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center"
+    },
+    dataCart: {
+      paddingHorizontal: 30
+    },
+    button_container: {
+      width: '70%',
+      alignSelf: 'center'
+    },
+    button: {
+        marginTop: 10,
+        backgroundColor: "#000",
+        borderRadius: 10,
+        paddingVertical: 10
+    },
+    text_button: {
+        textAlign: 'center',
+        color: '#fff',
+        fontSize: 16
+    },
   })
   
 
