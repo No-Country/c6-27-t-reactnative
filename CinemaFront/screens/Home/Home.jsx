@@ -137,7 +137,7 @@ const Home = ({ navigation }) => {
                             <Text>{arrayGenres}</Text>
                             <View style={styles.button_container}>
                                 <TouchableOpacity style={styles.button} onPress={()=> detailMovie(item.id, item.title)}>
-                                    <Text style={styles.text_button}>Ver horarios</Text>
+                                    <Text style={styles.text_button}>Comprar Ticket</Text>
                                 </TouchableOpacity>
                             </View>
                     </Animated.View>
