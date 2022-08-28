@@ -7,6 +7,10 @@ module.exports = (sequelize, dataTypes) => {
        username: { type: dataTypes.STRING(100), allowNull: false},       
        password: {type: dataTypes.STRING(100), allowNull: false },       
        connect: {type: dataTypes.BOOLEAN, allowNull: false, defaultValue: false },       
+       firstname: {type: dataTypes.STRING(100), allowNull: false },       
+       lastname: {type: dataTypes.STRING(100), allowNull: false },       
+       cardnumber: {type: dataTypes.STRING(100), allowNull: true },       
+       
      };
      let config = {
        tableName: 'user',

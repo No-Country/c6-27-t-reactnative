@@ -42,7 +42,7 @@ const controller = {
     if (errors.isEmpty()) {
       await User.findOne({
         where: { username: nombre },
-        attributes: ['userId', 'username', 'password', 'connect', 'roleId'],
+        attributes: ['userId', 'username', 'password', 'connect', 'roleId', 'firstname', 'lastname', 'cardnumber'],
         include: [{ association: 'role' }]
       })
         .then((userFound) => {
@@ -50,7 +50,15 @@ const controller = {
             userFound != null &&
             bcrypt.compareSync(req.body.password, userFound.dataValues.password)
           ) {
-            res.send({ status: 200, token: 'superTokenPepito123' })
+            res.send(
+              {
+                cardnumber: userFound.cardnumber,
+                firstname: userFound.firstname,
+                lastname: userFound.lastname,
+                status: 200, 
+                token: 'superTokenPepito123',
+                username: userFound.username
+              })
           } else {
             res.send({ status: 401, msg: 'Usuario o contraseña incorrectos.' })
           }
