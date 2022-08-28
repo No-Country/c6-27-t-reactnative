@@ -28,13 +28,13 @@ const handleSubmit = () => {
           style={styles.splashImage}
           source={require('./../Login/login.png')}
         />
-        <Text> Usuario: {route.params.name}</Text>
+        <Text> Usuario: {route.params.username}</Text>
         <Text>  </Text>
-        <Text> Nombre: XXXXXX </Text>
-        <Text> Apellido: XXXXXX </Text>
-        <Text> Tarjeta de Credito: XXXXXX </Text>
+        <Text> Nombre: {route.params.firstname} </Text>
+        <Text> Apellido: {route.params.lastname} </Text>
+        <Text> Tarjeta de Credito: {route.params.cardnumber?route.params.cardnumber:"No registrada"} </Text>
         <Text>  </Text>
-        <Text>Hola {route.params.name} ¿como estas?. </Text>
+        <Text>Hola {route.params.firstname} {route.params.lastname} ¿como estas?. </Text>
         <Text> ¿Con ganas de ver una pelicula ? </Text>
         <Text>  </Text>
 

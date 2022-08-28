@@ -40,6 +40,8 @@ const loginValidationSchema = yup.object().shape({
 })
 
 const Login = ({ navigation }) => {
+  let production = true;
+  const baseUrlDev = 'http://localhost:3000'
   const baseUrl1 = 'https://gruporeactnative-server.herokuapp.com'
   const [isLoading, setIsLoading] = useState(false)
   const [loginResponse, setLoginResponse] = useState(0)
@@ -50,7 +52,9 @@ const Login = ({ navigation }) => {
     try {
       const response = await axios({
         method: 'post',
-        url: `${baseUrl1}/api/v1/users/login`,
+        url: production?
+        `${baseUrl1}/api/v1/users/login`:
+        `${baseUrlDev}/api/v1/users/login`,
         data: {
           username: values.username.toLowerCase(),
           password: values.password
@@ -65,7 +69,10 @@ const Login = ({ navigation }) => {
           setTimeout(() => {
             setLoginResponse(0)
             navigation.navigate('Profile', {
-              name: values.username.toLowerCase()
+              username: response.data.username.toLowerCase(),
+              firstname: response.data.firstname,
+              lastname: response.data.lastname,
+              cardnumber: response.data.cardnumber
             })
           }, 3000)
         } else {
