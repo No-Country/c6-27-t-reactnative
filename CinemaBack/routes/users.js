@@ -12,8 +12,9 @@ const loginValidations = [
 
 const registerValidations = [
     body("username").notEmpty().withMessage("Debes completar el campo"),
-    body("password").notEmpty().withMessage("Debes completar el campo"),
-    body("roleId").notEmpty().withMessage("Debes completar el campo"),
+    body("password").notEmpty().withMessage("Debes completar el campo"),    
+    body("firstname").notEmpty().withMessage("Debes completar el campo"),
+    body("lastname").notEmpty().withMessage("Debes completar el campo"),    
   ];
 
 const updateValidations = [
