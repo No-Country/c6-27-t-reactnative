@@ -1,7 +1,8 @@
 // Login.jsx
 
 import { Platform } from 'react-native'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { AppContext} from "../../App"
 import {
   SafeAreaView,
   StyleSheet,
@@ -40,11 +41,16 @@ const loginValidationSchema = yup.object().shape({
 })
 
 const Login = ({ navigation }) => {
-  let production = true;
+
+  const {globalUsername, setGlobalUsername} = useContext(AppContext);
+  const {globalFirstname, setGlobalFirstname} = useContext(AppContext);
+  const {globalLastname, setGlobalLastname} = useContext(AppContext);
+  const {globalCardNumber, setGlobalCardNumber} = useContext(AppContext);
+  let production = false;
   const baseUrlDev = 'http://localhost:3000'
   const baseUrl1 = 'https://gruporeactnative-server.herokuapp.com'
   const [isLoading, setIsLoading] = useState(false)
-  const [loginResponse, setLoginResponse] = useState(0)
+  const [loginResponse, setLoginResponse] = useState(0)  
 
   const handleSubmit = async (values) => {
     setLoginResponse(0)
@@ -65,15 +71,14 @@ const Login = ({ navigation }) => {
         console.log(response)
         if (response.data.status === 200) {
           AsyncStorage.setItem('token', response.data.token)
-          setLoginResponse(200)
+          AsyncStorage.setItem('username', response.data.username.toLowerCase())
+          setLoginResponse(200)          
+          setGlobalFirstname(response.data.firstname);
+          setGlobalLastname(response.data.lastname);
+          setGlobalCardNumber(response.data.cardnumber);            
           setTimeout(() => {
             setLoginResponse(0)
-            navigation.navigate('Profile', {
-              username: response.data.username.toLowerCase(),
-              firstname: response.data.firstname,
-              lastname: response.data.lastname,
-              cardnumber: response.data.cardnumber
-            })
+            setGlobalUsername(response.data.username.toLowerCase());            
           }, 3000)
         } else {
           setLoginResponse(403)
@@ -95,7 +100,7 @@ const Login = ({ navigation }) => {
     navigation.navigate('Register2')
   }
 
-  return (
+  return (   
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
@@ -206,9 +211,9 @@ const Login = ({ navigation }) => {
           </Formik>
         </ScrollView>
         </KeyboardAvoidingView>
-      </SafeAreaView>
+      </SafeAreaView>    
     </>
-  )
+    )
 }
 
 const styles = StyleSheet.create({
@@ -254,7 +259,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: 'black',
     padding: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',         
+    alignSelf: "center"
   },
   scrollView: {
    width: "90%"

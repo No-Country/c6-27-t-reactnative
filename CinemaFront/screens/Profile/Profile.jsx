@@ -1,4 +1,6 @@
 // Profile.jsx
+import { useContext } from 'react'
+import { AppContext} from "../../App"
 
 import {
   Platform,
@@ -12,6 +14,11 @@ import {
 } from 'react-native'
 
 const Profile = ({ navigation, route }) => {
+
+  const {globalUsername, setGlobalUsername} = useContext(AppContext);
+  const {globalFirstname, setGlobalFirstname} = useContext(AppContext);
+  const {globalLastname, setGlobalLastname} = useContext(AppContext);
+  const {globalCardNumber, setGlobalCardNumber} = useContext(AppContext);
 
 const handleSubmit = () => {
   if (Platform.OS !== 'web') navigation.navigate('Home')
@@ -28,18 +35,22 @@ const handleSubmit = () => {
           style={styles.splashImage}
           source={require('./../Login/login.png')}
         />
-        <Text> Usuario: {route.params.username}</Text>
+        <Text> Usuario: {globalUsername}</Text>
         <Text>  </Text>
-        <Text> Nombre: {route.params.firstname} </Text>
-        <Text> Apellido: {route.params.lastname} </Text>
-        <Text> Tarjeta de Credito: {route.params.cardnumber?route.params.cardnumber:"No registrada"} </Text>
+        <Text> Nombre: {globalFirstname} </Text>
+        <Text> Apellido: {globalLastname} </Text>
+        <Text> Tarjeta de Credito: {globalCardNumber?globalCardNumber:"No registrada"} </Text>
         <Text>  </Text>
-        <Text>Hola {route.params.firstname} {route.params.lastname} ¿como estas?. </Text>
+        <Text>Hola {globalFirstname} {globalLastname} ¿como estas?. </Text>
         <Text> ¿Con ganas de ver una pelicula ? </Text>
         <Text>  </Text>
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={{ fontSize: 24 }}>Reservar una Pelicula </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={ () => setGlobalUsername(null)}>
+          <Text style={{ fontSize: 24 }}> Salir / Log Out </Text>
         </TouchableOpacity>
       </SafeAreaView>
     </>
@@ -62,6 +73,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   button: {
+    marginTop: 10,
     alignItems: 'center',
     backgroundColor: 'lightblue',
     padding: 12,
