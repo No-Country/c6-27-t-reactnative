@@ -68,7 +68,7 @@ const Register2 = ({ navigation }) => {
   const {globalFirstname, setGlobalFirstname} = useContext(AppContext);
   const {globalLastname, setGlobalLastname} = useContext(AppContext);
   const {globalCardNumber, setGlobalCardNumber} = useContext(AppContext);  
-  let production = false
+  let production = true
   const baseUrlDev = 'http://localhost:3000'
   const baseUrl1 = 'https://gruporeactnative-server.herokuapp.com'
   const [isLoading, setIsLoading] = useState(false)
