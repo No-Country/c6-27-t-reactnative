@@ -1086,7 +1086,7 @@ const Schedule = ({ navigation, route }) => {
     }    
 
   return (
-    <View>
+    <ScrollView>
          {newMovie && 
          <View style={{ backgroundColor: "#fff"}}>
             <View style={{ height: 50, marginTop: 20}}>
@@ -1125,22 +1125,22 @@ const Schedule = ({ navigation, route }) => {
                     <View style={styles.leyend_item}>
                         <View style={styles.leyend_item_circle}>
                         </View>
-                        <Text>
+                        <Text style={{fontSize: 12}}>
                             Disponible
                         </Text>
                     </View>
                     <View style={styles.leyend_item}>
                         <View style={[styles.leyend_item_circle, { backgroundColor: "#000"}]}>
                         </View>
-                        <Text>
+                        <Text style={{fontSize: 12}}>
                             Ocupado
                         </Text>
                     </View>
                     <View style={styles.leyend_item}>
                         <View style={[styles.leyend_item_circle, { backgroundColor: "blue"}]}>
                         </View>
-                        <Text>
-                            Selecccionado
+                        <Text style={{fontSize: 12}}>
+                            Seleccionado
                         </Text>
                     </View>
             </View>
@@ -1206,7 +1206,7 @@ const Schedule = ({ navigation, route }) => {
         </View>
          }
        
-    </View>
+    </ScrollView>
   )
 }
 
@@ -1239,7 +1239,7 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         alignSelf: "center",
         borderRadius: 20,
-        transform: [{ rotateX: '-60deg' }]
+        transform: [{ rotateX: '-50deg' }]
     },
     seats: {
         width: '90%',
@@ -1280,7 +1280,8 @@ const styles = StyleSheet.create({
     },
     button_container: {
         width: '70%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginBottom: 10
     },
     button: {
         marginTop: 10,

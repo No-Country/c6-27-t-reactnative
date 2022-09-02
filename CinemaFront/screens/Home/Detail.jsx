@@ -48,6 +48,7 @@ const DetailMovie = ({ navigation, route }) => {
                 <Text style={{fontWeight: "100"}}> {newMovie.release_date}</Text>*/}
                 <Text style={{fontWeight: "bold"}}>Descripcion:</Text>
                 <Text>{newMovie.overview}</Text>
+                <Text><Text style={{fontWeight: "bold"}}>Estreno: </Text> {newMovie.release_date}</Text>
                 <View style={styles.data}>
                     <View style={styles.dataCart}>
                       <Text style={{fontWeight: "bold"}}>Duración</Text>
@@ -136,7 +137,8 @@ const styles = StyleSheet.create({
     },
     button_container: {
       width: '70%',
-      alignSelf: 'center'
+      alignSelf: 'center',
+      marginBottom: 10
     },
     button: {
         marginTop: 10,
