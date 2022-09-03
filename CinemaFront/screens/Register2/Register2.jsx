@@ -76,7 +76,7 @@ const Register2 = ({ navigation }) => {
     try {
       const response = await axios({
         method: 'post',
-        url: `${baseUrl1}/api/v1/users/login`,
+        url: `${baseUrl1}/api/v1/users/create`,
         data: {
           username: values.username.toLowerCase(),
           firstname: values.firstname,
