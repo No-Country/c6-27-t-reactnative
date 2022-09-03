@@ -71,13 +71,17 @@ const controller = {
   create: async (req, res) => {
     let errors = validationResult(req)
     if (errors.isEmpty()) {
-      let user = req.body
-      user.password = bcrypt.hashSync(user.password, 10)
+      let user = {}      
+      user.username = req.body.username
+      user.password = bcrypt.hashSync(req.body.password, 10)
       user.connect = false
-      user.roleId = req.body.roleId
+      user.roleId = 2 // 1 Admin y 2 Client
+      user.firstname = req.body.firstname
+      user.lastname = req.body.lastname
+      user.cardnumber = req.body.cardnumber
       User.create(user)
         .then((userCreated) => {
-          res.send({ status: 200, newUser: userCreated })
+          res.send({ status: 200, ...user})
         })
         .catch((error) => res.send(error))
     } else {
