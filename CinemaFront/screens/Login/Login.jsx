@@ -71,11 +71,15 @@ const Login = ({ navigation }) => {
         console.log(response)
         if (response.data.status === 200) {
           AsyncStorage.setItem('token', response.data.token)
-          AsyncStorage.setItem('username', response.data.username.toLowerCase())
-          setLoginResponse(200)          
+          AsyncStorage.setItem('username', response.data.username.toLowerCase())                   
           setGlobalFirstname(response.data.firstname);
           setGlobalLastname(response.data.lastname);
-          setGlobalCardNumber(response.data.cardnumber);            
+          setGlobalCardNumber(response.data.cardnumber);
+          AsyncStorage.setItem('firstname', response.data.firstname)
+          AsyncStorage.setItem('lastname', response.data.lastname)
+          AsyncStorage.setItem('cardnumber', response.data.cardnumber)
+          setLoginResponse(200)
+
           setTimeout(() => {
             setLoginResponse(0)
             setGlobalUsername(response.data.username.toLowerCase());            

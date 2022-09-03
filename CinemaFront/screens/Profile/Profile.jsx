@@ -21,10 +21,10 @@ const Profile = ({ navigation, route }) => {
   const {globalCardNumber, setGlobalCardNumber} = useContext(AppContext);
 
 const handleSubmit = () => {
-  if (Platform.OS !== 'web') navigation.navigate('Home')
-  else {
-    navigation.navigate('HomeWeb')
-  }
+  /*if (Platform.OS !== 'web') navigation.navigate('Main')
+  else {*/
+    navigation.navigate('Main')
+  //}
 }
 
   return (

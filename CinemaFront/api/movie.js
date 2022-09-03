@@ -12,6 +12,8 @@ export function getNewsMoviesApi(page = 1) {
    });
 }
 
+
+
 export function getGenreMovieApi(idGenres){
     const url = `${API_HOST}/genre/movie/list?api_key=${API_KEY}&lenguage=${LANG}`;
 
@@ -82,6 +84,17 @@ export function getMovieByIdApi(idMovie){
 
 export function getVideoMovieApi(idMovie){
     const url = `${API_HOST}/movie/${idMovie}/videos?api_key=${API_KEY}&language=${LANG}`;
+    return fetch(url)
+    .then((response) => {
+        return response.json()
+    })
+    .then((result) => {
+        return result;
+    })
+}
+
+export function getUpComingMoviesApi(page=1){
+    const url = `${API_HOST}/movie/upcoming?api_key=${API_KEY}&language=${LANG}&page=${page}`;
     return fetch(url)
     .then((response) => {
         return response.json()
