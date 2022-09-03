@@ -65,6 +65,10 @@ const Login = ({ navigation }) => {
         console.log(response)
         if (response.data.status === 200) {
           AsyncStorage.setItem('token', response.data.token)
+          AsyncStorage.setItem('username', response.data.username.toLowerCase())
+          AsyncStorage.setItem('firstname', response.data.firstname)
+          AsyncStorage.setItem('lastname', response.data.lastname)
+          AsyncStorage.setItem('cardnumber', response.data.cardnumber)
           setLoginResponse(200)
           setTimeout(() => {
             setLoginResponse(0)
